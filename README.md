@@ -5,6 +5,7 @@ I Used Items:
 Admin Panel.
 
 Email Admin : test@yahoo.com
+
 Password Admin: A@a123456
 
 Used BlazorComponent Into Mvc.(Admin/Product)
