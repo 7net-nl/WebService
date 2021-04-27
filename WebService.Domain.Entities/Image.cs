@@ -1,0 +1,13 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace WebService.Domain.Entities
+{
+    public class Image : BaseEntity<Guid>
+    {
+        public string Name { get; set; }
+        public string Path { get; set; }
+        public Guid Product_ID { get; set; }
+    }
+}

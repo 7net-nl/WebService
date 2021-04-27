@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="FluentValidation" Version="9.0.0-preview3" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="9.0.0-preview3" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="3.1.3" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.3" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WebService.Domain.Contract\WebService.Domain.Contract.csproj" />
+    <ProjectReference Include="..\WebService.Domain.Entities\WebService.Domain.Entities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Categories\Command\Create\" />
+    <Folder Include="Categories\Command\Delete\" />
+    <Folder Include="Categories\Command\Update\" />
+    <Folder Include="Categories\Dto\" />
+    <Folder Include="Categories\Queries\Get\" />
+    <Folder Include="Categories\Queries\GetAll\" />
+    <Folder Include="Images\Command\Delete\" />
+    <Folder Include="Images\Command\Update\" />
+    <Folder Include="Images\Queries\GetAll\" />
+    <Folder Include="Images\Queries\Get\" />
+    <Folder Include="Services\" />
+    <Folder Include="Tags\" />
+  </ItemGroup>
+
+</Project>

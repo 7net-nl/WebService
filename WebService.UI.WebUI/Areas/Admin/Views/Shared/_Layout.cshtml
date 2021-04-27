@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+
+<html lang="en">
+<head>
+  <partial name="_Head" />
+</head>
+<body class="sidebar-noneoverflow">
+    <partial name="_Header" />
+
+    <!--  BEGIN MAIN CONTAINER  -->
+    <div class="main-container" id="container">
+        <div class="overlay"></div>
+        <div class="search-overlay"></div>
+        <partial name="_SideBar" />
+        <!--  BEGIN CONTENT AREA  -->
+        <div id="content" class="main-content">
+            <div class="layout-px-spacing">
+
+                @RenderBody()
+
+            </div>
+            <partial name="_Footer" />
+        </div>
+        <!--  END CONTENT AREA  -->
+
+
+    </div>
+    <!-- END MAIN CONTAINER -->
+    <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
+    <script src="~/_framework/blazor.server.js"></script>
+    <partial name="_Script" />
+
+    @RenderSection("Scripts", false)
+</body>
+</html>

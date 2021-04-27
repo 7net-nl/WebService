@@ -1,0 +1,230 @@
+﻿@using Microsoft.AspNetCore.Components.Web
+@inherits EditComponentBase
+
+<div class="row">
+
+    <div class="col-sm-12 col-md-4">
+        
+            <button @onclick="()=>Open(new WebUI.Models.Product.UpdateProductViewModel())" class="btn btn-primary d-block text-white text-center m-t-3">Add Product</button>
+
+    </div>
+    <div class="col-sm-12 col-md-4"></div>
+    <div class="col-sm-12 col-md-4">
+        <div id="style-3_filter" class="dataTables_filter">
+            <label>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65">
+
+                    </line>
+                </svg>
+                <input type="search" class="form-control" placeholder="Search..." aria-controls="style-3">
+            </label>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <table id="style-3" class="table style-3 table-hover dataTable no-footer" role="grid" aria-describedby="style-3_info">
+            <thead>
+                <tr role="row">
+
+                    <th class="text-center sorting" tabindex="0" aria-controls="style-3" rowspan="1" colspan="1" style="width: 52.35px;" aria-label="Image: activate to sort column ascending">Image</th>
+                    <th class="sorting" tabindex="0" aria-controls="style-3" rowspan="1" colspan="1" style="width: 96.8667px;" aria-label="First Name: activate to sort column ascending">Customer</th>
+                    <th class="sorting" tabindex="0" aria-controls="style-3" rowspan="1" colspan="1" style="width: 92.2167px;" aria-label="Last Name: activate to sort column ascending">Site</th>
+                    <th class="sorting" tabindex="0" aria-controls="style-3" rowspan="1" colspan="1" style="width: 90px;" aria-label="Email: activate to sort column ascending">Description</th>
+                    <th class="text-center sorting" tabindex="0" aria-controls="style-3" rowspan="1" colspan="1" style="width: 75px;" aria-label="Status: activate to sort column ascending">StartDate</th>
+                    <th class="text-center sorting" tabindex="0" aria-controls="style-3" rowspan="1" colspan="1" style="width: 75px;" aria-label="Status: activate to sort column ascending">EndDate</th>
+                    <th class="sorting" tabindex="0" aria-controls="style-3" rowspan="1" colspan="1" style="width: 93.7333px;" aria-label="Mobile No.: activate to sort column ascending">Categories</th>
+                    <th class="text-center sorting" tabindex="0" aria-controls="style-3" rowspan="1" colspan="1" style="width: 70.5333px;" aria-label="Status: activate to sort column ascending">Services</th>
+                    <th class="text-center sorting" tabindex="0" aria-controls="style-3" rowspan="1" colspan="1" style="width: 70.5333px;" aria-label="Status: activate to sort column ascending">Tags</th>
+                    <th class="text-center sorting" tabindex="0" aria-controls="style-3" rowspan="1" colspan="1" style="width: 62.45px;" aria-label="Action: activate to sort column ascending">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+
+
+
+                @foreach (var item in Models.Products)
+                {
+
+
+                    <tr role="row">
+
+                        <td class="text-center">
+                            <span>
+                                <img src="@(item.Product.Images.LastOrDefault()?.Path+item.Product.Images.LastOrDefault()?.Name)" class="profile-img" alt="avatar">
+                            </span>
+                        </td>
+                        <td>@item.Product.Customer</td>
+                        <td>@item.Product.SiteUrl</td>
+                        <td>@item.Product.Description.Substring(0, item.Product.Description.Length > 50 ? 50 : item.Product.Description.Length)</td>
+                        <td>@item.Product.StartDate.ToString("MMMM, yy")</td>
+                        <td>@item.Product.EndDate.ToString("MMMM, yy")</td>
+                        <td>@string.Join(" ,", item.Product.Category)</td>
+                        <td>@string.Join(" ,", item.Product.Services)</td>
+                        <td>@string.Join(" ,", item.Product.Tags)</td>
+                        <td class="text-center">
+                            <ul class="table-controls">
+                                <li>
+                                    <a @onclick="()=>Open(item,true)" class="bs-tooltip" data-placement="top" title="" data-original-title="Edit" data-toggle="modal" data-target="#modalcomp">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 p-1 br-6 mb-1"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a @onclick="()=>Delete(item)" class="bs-tooltip" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash p-1 br-6 mb-1"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                    </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 col-md-5">
+        <div class="dataTables_info" id="style-3_info" role="status" aria-live="polite">Showing page @Models.CurrentPage of @Models.TotalPage</div>
+    </div>
+    <div class="col-sm-12 col-md-7">
+        <div class="dataTables_paginate paging_simple_numbers" id="style-3_paginate">
+            <ul class="pagination">
+                <li class="paginate_button page-item previous disabled" id="style-3_previous">
+                    <a href="#" aria-controls="style-3" data-dt-idx="0" tabindex="0" class="page-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                    </a>
+                </li>
+                @for (int i = 1; i <= Models.TotalPage; i++)
+                {
+                    if (Models.CurrentPage == i)
+                    {
+                        <li class="paginate_button page-item active">
+                            <a href="#" aria-controls="style-3" data-dt-idx="1" tabindex="0" class="page-link">@i</a>
+                        </li>
+                    }
+
+                    else
+                    {
+                        <li class="paginate_button page-item">
+                            <a href="#" aria-controls="style-3" data-dt-idx="1" tabindex="0" class="page-link">@i</a>
+                        </li>
+                    }
+                }
+                <li class="paginate_button page-item next" id="style-3_next">
+                    <a href="#" aria-controls="style-3" data-dt-idx="3" tabindex="0" class="page-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade @Show" tabindex="-1" role="dialog" style="display:@Style">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                @if (AddOrEdit == "Add")
+                {
+                    <h5 class="modal-title">Add Product</h5>
+                }
+                @if (AddOrEdit == "Edit")
+                {
+                    <h5 class="modal-title">Edit Product</h5>
+                }
+                <button type="button" class="close" @onclick="()=>Close()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+
+                                <label>Customer</label>
+                                <input type="text" class="form-control" @bind="@GetProduct.Product.Customer" placeholder="Input Customer Name">
+                            </div>
+                            <div class="form-group">
+
+                                <label>Site Name</label>
+                                <input type="text" class="form-control" @bind="@GetProduct.Product.SiteName" placeholder="Input Customer Name">
+                            </div>
+                            <div class="form-group">
+                                <label>Site</label>
+                                <input type="text" class="form-control" @bind="@GetProduct.Product.SiteUrl" placeholder="Input Url https://.....">
+                            </div>
+                            <div class="form-group">
+                                <label>Start Date</label>
+                                <input type="date" class="form-control" @bind="@GetProduct.Product.StartDate" placeholder="Input StartDate 20/12/2019">
+                            </div>
+                            <div class="form-group">
+                                <label>End Date</label>
+                                <input type="date" class="form-control" @bind="@GetProduct.Product.EndDate" placeholder="Input EndDate 20/11/2020">
+                            </div>
+                            <div class="form-group">
+                                <label>Category</label>
+                                <input type="text" class="form-control" @bind="@Categoryjoin" placeholder="Input Description ..........." />
+                            </div>
+                            <div class="form-group">
+                                <label>Service</label>
+                                <input type="text" class="form-control" @bind="@Servicejoin" placeholder="Input Services Admin Panle,BootStrap,...">
+                            </div>
+                            <div class="form-group">
+                                <label>Tag</label>
+                                <input type="text" class="form-control" @bind="@Tagjoin" placeholder="Input Tags C#,Asp.netCore,...">
+                            </div>
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea rows="5" @bind="GetProduct.Product.Description" class="form-control" placeholder="Input Description ..........."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <button @onclick="()=>AddImage()" type="button" class="btn btn-success mb-3">Add Image</button>
+                                <input class="form-control" @bind="@GetImage.Path" placeholder="Image File Path" />
+                                <input class="form-control" @bind="@GetImage.Name" placeholder="Image File Name" />
+
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="row">
+                                @foreach (var item in GetProduct.Product.Images)
+                                {
+
+                                    <div class="col-lg-6 col-md-6">
+                                        <a @onclick="()=>DeleteImage(item)" class="btn btn-danger w-100" aria-label="Delete">Delete</a>
+
+                                        <img src="@(item.Path+item.Name)" class="profile-img mb-3" width="100%" height="200px" alt="avatar">
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <span class="text-danger text-lg-center">@(Result)</span>
+                    @if (AddOrEdit == "Add")
+                    {
+                        <button type="button" class="btn btn-primary" @onclick="() => Create()">Save changes</button>
+                    }
+                    @if (AddOrEdit == "Edit")
+                    {
+                        <button type="button" class="btn btn-primary" @onclick="()=>Edit(GetProduct)">Save changes</button>
+                    }
+                    <button type="button" class="btn btn-secondary" @onclick="()=>Close()">Close</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (ShowBackdrop)
+{
+    <div class="modal-backdrop fade show"></div>
+}
